@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint ./src --ext .ts --fix",
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "swagger-gen": "ts-node src/config/swagger.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
@@ -27,6 +28,7 @@
     "eslint": "^8.56.0",
     "nodemon": "^3.0.3",
     "prisma": "^5.9.1",
+    "swagger-autogen": "^2.23.7",
     "ts-node": "^10.9.2",
     "typescript": "5.3.3"
   }
