@@ -1,0 +1,1003 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v2.0.0",
+    "title": "Carved Rock Fitness API",
+    "description": "API for Rest Fundamentals course on Pluralsight"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/api/v2"
+    }
+  ],
+  "paths": {
+    "/items/": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Gets all items",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "The list of items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/items"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/items"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Creates a new item",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/itemDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#components/schemas/itemDTO"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Updates an item",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/updateItemDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#components/schemas/updateItemDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/items/{id}": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Gets a specific item by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/item"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/item"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Deletes a specific item by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The item that was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/item"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/item"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/customers/": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Gets all customers",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "The list of customers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/customers"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/customers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Creates a new customer",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/customerDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#components/schemas/customerDTO"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Updates an customer",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/updateCustomerDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#components/schemas/updateCustomerDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{id}": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Gets a specific customer by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The customer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/customer"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/customer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Deletes a specific customer by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The customer that was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/customer"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/customer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/customers/{id}/orders": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Gets a specific customer's orders by customer ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/orders"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/orders"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/customers/search/{query}": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Gets all customers matching the search query",
+        "description": "",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of customers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/customers"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/customers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/orders/": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Gets all orders",
+        "description": "",
+        "parameters": [
+          {
+            "name": "start",
+            "description": "The starting index of orders to retrieve",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "size",
+            "description": "The number of orders to retrieve",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/orders"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/orders"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Creates a new order",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/orderDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#components/schemas/orderDTO"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Updates an order's status",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/updateOrderDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#components/schemas/updateOrderDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Gets a specific order by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/order"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Deletes a specific order by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The order that was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/order"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/orders/{id}/items/{itemId}": {
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Deletes a specific item from an order by order and item ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The order after the item is deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/order"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#components/schemas/order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/orders/{id}/items": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Adds items to an order",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/orderItemsDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#components/schemas/orderItemsDTO"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Kayak"
+            }
+          }
+        },
+        "xml": {
+          "name": "items"
+        }
+      },
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Kayak"
+          },
+          "description": {
+            "type": "string",
+            "example": "Go for a paddle"
+          }
+        },
+        "xml": {
+          "name": "item"
+        }
+      },
+      "itemDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Kayak"
+          },
+          "description": {
+            "type": "string",
+            "example": "Go for a paddle"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "xml": {
+          "name": "itemDTO"
+        }
+      },
+      "updateItemDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Kayak"
+          },
+          "description": {
+            "type": "string",
+            "example": "Go for a paddle"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "xml": {
+          "name": "updateItemDTO"
+        }
+      },
+      "customer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+          },
+          "name": {
+            "type": "string",
+            "example": "Kelsey Shiratori"
+          },
+          "email": {
+            "type": "string",
+            "example": "ks@gmail.com"
+          }
+        },
+        "xml": {
+          "name": "customer"
+        }
+      },
+      "customers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+            },
+            "name": {
+              "type": "string",
+              "example": "Kelsey Shiratori"
+            },
+            "email": {
+              "type": "string",
+              "example": "ks@gmail.com"
+            }
+          }
+        },
+        "xml": {
+          "name": "customers"
+        }
+      },
+      "customerDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Kelsey Shiratori"
+          },
+          "email": {
+            "type": "string",
+            "example": "ks@gmail.com"
+          }
+        },
+        "xml": {
+          "name": "customerDTO"
+        }
+      },
+      "updateCustomerDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+          },
+          "name": {
+            "type": "string",
+            "example": "Kelsey Shiratori"
+          },
+          "email": {
+            "type": "string",
+            "example": "ks@gmail.com"
+          }
+        },
+        "xml": {
+          "name": "updateCustomerDTO"
+        }
+      },
+      "orders": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
+            },
+            "customerId": {
+              "type": "string",
+              "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+            },
+            "status": {
+              "type": "string",
+              "example": "Created"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-02-08T02:32:51.630Z"
+            }
+          }
+        },
+        "xml": {
+          "name": "orders"
+        }
+      },
+      "order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+          },
+          "status": {
+            "type": "string",
+            "example": "Created"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2024-02-08T02:32:51.630Z"
+          }
+        },
+        "xml": {
+          "name": "order"
+        }
+      },
+      "orderDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+          },
+          "status": {
+            "type": "string",
+            "example": "Created"
+          }
+        },
+        "xml": {
+          "name": "orderDTO"
+        }
+      },
+      "updateOrderDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
+          },
+          "status": {
+            "type": "string",
+            "example": "Shipped"
+          }
+        },
+        "xml": {
+          "name": "updateOrderDTO"
+        }
+      },
+      "orderItemsDTO": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "itemId": {
+              "type": "number",
+              "example": 1
+            },
+            "quantity": {
+              "type": "number",
+              "example": 2
+            }
+          }
+        },
+        "xml": {
+          "name": "orderItemsDTO"
+        }
+      }
+    }
+  }
+}

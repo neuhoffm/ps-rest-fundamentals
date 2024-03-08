@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./carved-rock.db"
+}
+
+
+model Item {
+  id            Int     @id @default(autoincrement())
+  name          String
+  description   String?
+  orders        OrderItem[]
+}
+
+model Customer {
+  id      String    @id @default(uuid())
+  name    String
+  email   String
+  orders  Order[]
+}
+
+model Order {
+  id          String    @id @default(uuid())
+  customer    Customer  @relation(fields: [customerId], references: [id])
+  customerId  String
+  status      String
+  createdAt   DateTime  @default(now())
+  items       OrderItem[]
+}
+
+model OrderItem {
+  @@id([orderId, itemId])
+  order     Order       @relation(fields: [orderId], references: [id])
+  orderId   String
+  item      Item @relation(fields: [itemId], references: [id])
+  itemId    Int
+  quantity  Int
+}
