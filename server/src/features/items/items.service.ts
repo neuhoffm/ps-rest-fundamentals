@@ -31,9 +31,21 @@ export function getItems(): Promise<Item[]> {
 }
 
 export function getItemDetail(itemId: number): Promise<ItemDetail | null> {
-  return prisma.item.findFirst({
-    where: { id: itemId },
-  });
+  if (cache.has(itemId)) {
+    const cacheItem = cache.get<ItemDetail>(itemId);
+    if (cacheItem != undefined) {
+      return Promise.resolve(cacheItem);
+    }
+  }
+
+  return prisma.item
+    .findFirst({
+      where: { id: itemId },
+    })
+    .then((item) => {
+      cache.set(itemId, item);
+      return item;
+    });
 }
 
 export function upsertItem(item: ItemDTO): Promise<Item | null> {
@@ -53,6 +65,7 @@ export function upsertItem(item: ItemDTO): Promise<Item | null> {
     })
     .then((item) => {
       cache.delete(listKey);
+      cache.delete(item.id);
       return item;
     });
 }
@@ -74,6 +87,10 @@ export function deleteItem(itemId: number): Promise<Item | null> {
     })
     .then((item) => {
       cache.delete(listKey);
+      if (item != null) {
+        cache.delete(item.id);
+      }
+
       return item;
     });
 }
