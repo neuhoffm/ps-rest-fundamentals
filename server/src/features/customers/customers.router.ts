@@ -14,12 +14,24 @@ import {
 import { validate } from "../../middleware/validation.middleware";
 import { create } from "xmlbuilder2";
 import { getOrdersForCustomer } from "../orders/orders.service";
+import {
+  checkRequiredPermission,
+  validateAccessToken,
+} from "../../middleware/auth0.middleware";
+import {
+  CustomersPermissions,
+  SecurityPermissions,
+} from "../../config/permissions";
 
 export const customersRouter = express.Router();
 
-customersRouter.get("/", async (req, res) => {
-  const customers = await getCustomers();
-  if (req.headers["accept"] == "application/xml") {
+customersRouter.get(
+  "/",
+  validateAccessToken,
+  checkRequiredPermission(CustomersPermissions.Read),
+  async (req, res) => {
+    const customers = await getCustomers();
+    if (req.headers["accept"] == "application/xml") {
       const root = create().ele("customers");
       customers.forEach((i) => {
         root.ele("customer", i);
@@ -32,22 +44,30 @@ customersRouter.get("/", async (req, res) => {
   }
 );
 
-customersRouter.get("/:id", validate(idUUIDRequestSchema), async (req, res) => {
-  const data = idUUIDRequestSchema.parse(req);
-  const customer = await getCustomerDetail(data.params.id);
-  if (customer != null) {
+customersRouter.get(
+  "/:id",
+  validateAccessToken,
+  checkRequiredPermission(CustomersPermissions.Read_Single),
+  validate(idUUIDRequestSchema),
+  async (req, res) => {
+    const data = idUUIDRequestSchema.parse(req);
+    const customer = await getCustomerDetail(data.params.id);
+    if (customer != null) {
       if (req.headers["accept"] == "application/xml") {
         res.status(200).send(create().ele("customer", customer).end());
       } else {
-    res.json(customer);
+        res.json(customer);
       }
-  } else {
-    res.status(404).json({ message: "Customer Not Found" });
+    } else {
+      res.status(404).json({ message: "Customer Not Found" });
+    }
   }
-});
+);
 
 customersRouter.get(
   "/:id/orders",
+  validateAccessToken,
+  checkRequiredPermission(CustomersPermissions.Read_Customer_Orders),
   validate(idUUIDRequestSchema),
   async (req, res) => {
     const data = idUUIDRequestSchema.parse(req);
@@ -60,18 +80,19 @@ customersRouter.get(
 
       res.status(200).send(root.end({ prettyPrint: true }));
     } else {
-    res.json(orders);
-  }
+      res.json(orders);
+    }
   }
 );
 
 customersRouter.get(
   "/search/:query",
+  validateAccessToken,
+  checkRequiredPermission(CustomersPermissions.Read),
   validate(queryRequestSchema),
   async (req, res) => {
     const data = queryRequestSchema.parse(req);
     const customers = await searchCustomers(data.params.query);
-
     if (req.headers["accept"] == "application/xml") {
       const root = create().ele("customers");
       customers.forEach((i) => {
@@ -80,13 +101,15 @@ customersRouter.get(
 
       res.status(200).send(root.end({ prettyPrint: true }));
     } else {
-    res.json(customers);
-  }
+      res.json(customers);
+    }
   }
 );
 
 customersRouter.post(
   "/",
+  validateAccessToken,
+  checkRequiredPermission(CustomersPermissions.Create),
   validate(customerDTORequestSchema),
   async (req, res) => {
     const data = customerDTORequestSchema.parse(req);
@@ -101,6 +124,8 @@ customersRouter.post(
 
 customersRouter.delete(
   "/:id",
+  validateAccessToken,
+  checkRequiredPermission(SecurityPermissions.Deny),
   validate(idUUIDRequestSchema),
   async (req, res) => {
     const data = idUUIDRequestSchema.parse(req);
@@ -115,6 +140,8 @@ customersRouter.delete(
 
 customersRouter.put(
   "/",
+  validateAccessToken,
+  checkRequiredPermission(CustomersPermissions.Write),
   validate(customerDTORequestSchema),
   async (req, res) => {
     const data = customerDTORequestSchema.parse(req);
