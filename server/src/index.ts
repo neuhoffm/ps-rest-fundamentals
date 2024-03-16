@@ -5,6 +5,7 @@ import { errorHandler } from "./middleware/error.middleware";
 import { routes } from "./features/routes";
 import xmlparser from "express-xml-bodyparser";
 import cors from "cors";
+import compression from "compression";
 
 dotenv.config();
 
@@ -24,12 +25,14 @@ app.use(
   })
 );
 
+// configure gzip
+app.use(compression());
+
 // configure cors
 app.use(cors());
 
 // register routes
 app.use("/", routes);
-
 
 // register middleware
 app.use(express.static("public"));
