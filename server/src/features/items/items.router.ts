@@ -7,6 +7,7 @@ import {
 } from "./items.service";
 import { idNumberRequestSchema, itemDTORequestSchema } from "../types";
 import { validate } from "../../middleware/validation.middleware";
+import { create } from "xmlbuilder2";
 
 export const itemsRouter = express.Router();
 
@@ -16,7 +17,16 @@ itemsRouter.get("/", async (req, res) => {
     item.imageUrl = buildImageUrl(req, item.id);
   });
 
-  res.json(items);
+  if (req.headers["accept"] == "application/xml") {
+    const root = create().ele("items");
+    items.forEach((i) => {
+      root.ele("item", i);
+    });
+
+    res.status(200).send(root.end({ prettyPrint: true }));
+  } else {
+    res.json(items);
+  }
 });
 
 itemsRouter.get("/:id", validate(idNumberRequestSchema), async (req, res) => {
@@ -24,7 +34,11 @@ itemsRouter.get("/:id", validate(idNumberRequestSchema), async (req, res) => {
   const item = await getItemDetail(data.params.id);
   if (item != null) {
     item.imageUrl = buildImageUrl(req, item.id);
-    res.json(item);
+    if (req.headers["accept"] == "application/xml") {
+      res.status(200).send(create().ele("item", item).end());
+    } else {
+      res.json(item);
+    }
   } else {
     res.status(404).json({ message: "Item Not Found" });
   }
