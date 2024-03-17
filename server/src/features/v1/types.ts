@@ -12,7 +12,6 @@ export type Item = {
   id: number;
   name: string;
   imageUrl?: string;
-  staffReview?: string;
 };
 
 export type ItemDetail = Item & {
