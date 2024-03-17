@@ -19,16 +19,12 @@ import {
   OrdersPermissions,
   SecurityPermissions,
 } from "../../../config/permissions";
-import {
-  checkRequiredPermission,
-  validateAccessToken,
-} from "../../../middleware/auth0.middleware";
+import { checkRequiredPermission } from "../../../middleware/auth0.middleware";
 
 export const ordersRouter = express.Router();
 
 ordersRouter.get(
   "/",
-  validateAccessToken,
   checkRequiredPermission(OrdersPermissions.Read),
   validate(pagingRequestSchema),
   async (req, res) => {
@@ -58,7 +54,6 @@ ordersRouter.get(
 
 ordersRouter.get(
   "/:id",
-  validateAccessToken,
   checkRequiredPermission(OrdersPermissions.Read_Single),
   validate(idUUIDRequestSchema),
   async (req, res) => {
@@ -81,7 +76,6 @@ ordersRouter.get(
 
 ordersRouter.post(
   "/",
-  validateAccessToken,
   checkRequiredPermission(OrdersPermissions.Create),
   validate(orderDTORequestSchema),
   async (req, res) => {
@@ -104,7 +98,6 @@ ordersRouter.post(
 
 ordersRouter.delete(
   "/:id",
-  validateAccessToken,
   checkRequiredPermission(SecurityPermissions.Deny),
   validate(idUUIDRequestSchema),
   async (req, res) => {
@@ -127,7 +120,6 @@ ordersRouter.delete(
 
 ordersRouter.put(
   "/",
-  validateAccessToken,
   checkRequiredPermission(OrdersPermissions.Write),
   validate(orderDTORequestSchema),
   async (req, res) => {
@@ -151,7 +143,6 @@ ordersRouter.put(
 
 ordersRouter.delete(
   "/:id/items/:itemId",
-  validateAccessToken,
   checkRequiredPermission(OrdersPermissions.Create),
   validate(idItemIdUUIDRequestSchema),
   async (req, res) => {
@@ -174,7 +165,6 @@ ordersRouter.delete(
 
 ordersRouter.post(
   "/:id/items",
-  validateAccessToken,
   checkRequiredPermission(OrdersPermissions.Create),
   validate(orderItemsDTORequestSchema),
   async (req, res) => {
