@@ -14,10 +14,7 @@ import {
 import { validate } from "../../../middleware/validation.middleware";
 import { create } from "xmlbuilder2";
 import { getOrdersForCustomer } from "../orders/orders.service";
-import {
-  checkRequiredPermission,
-  validateAccessToken,
-} from "../../../middleware/auth0.middleware";
+import { checkRequiredPermission } from "../../../middleware/auth0.middleware";
 import {
   CustomersPermissions,
   SecurityPermissions,
@@ -27,7 +24,6 @@ export const customersRouter = express.Router();
 
 customersRouter.get(
   "/",
-  validateAccessToken,
   checkRequiredPermission(CustomersPermissions.Read),
   async (req, res) => {
     const customers = await getCustomers();
@@ -46,7 +42,6 @@ customersRouter.get(
 
 customersRouter.get(
   "/:id",
-  validateAccessToken,
   checkRequiredPermission(CustomersPermissions.Read_Single),
   validate(idUUIDRequestSchema),
   async (req, res) => {
@@ -66,7 +61,6 @@ customersRouter.get(
 
 customersRouter.get(
   "/:id/orders",
-  validateAccessToken,
   checkRequiredPermission(CustomersPermissions.Read_Customer_Orders),
   validate(idUUIDRequestSchema),
   async (req, res) => {
@@ -87,7 +81,6 @@ customersRouter.get(
 
 customersRouter.get(
   "/search/:query",
-  validateAccessToken,
   checkRequiredPermission(CustomersPermissions.Read),
   validate(queryRequestSchema),
   async (req, res) => {
@@ -108,7 +101,6 @@ customersRouter.get(
 
 customersRouter.post(
   "/",
-  validateAccessToken,
   checkRequiredPermission(CustomersPermissions.Create),
   validate(customerDTORequestSchema),
   async (req, res) => {
@@ -124,7 +116,6 @@ customersRouter.post(
 
 customersRouter.delete(
   "/:id",
-  validateAccessToken,
   checkRequiredPermission(SecurityPermissions.Deny),
   validate(idUUIDRequestSchema),
   async (req, res) => {
@@ -140,7 +131,6 @@ customersRouter.delete(
 
 customersRouter.put(
   "/",
-  validateAccessToken,
   checkRequiredPermission(CustomersPermissions.Write),
   validate(customerDTORequestSchema),
   async (req, res) => {
