@@ -20,6 +20,13 @@ import {
 export const itemsRouter = express.Router();
 
 itemsRouter.get("/", async (req, res) => {
+  /*
+    #swagger.summary = "Gets all items"
+    #swagger.responses[200] = {
+      description: "The list of items",
+      schema: {$ref: "#components/schemas/items"}
+    }
+  */
   const items = await getItems();
   items.forEach((item) => {
     item.imageUrl = buildImageUrl(req, item.id);
@@ -38,6 +45,13 @@ itemsRouter.get("/", async (req, res) => {
 });
 
 itemsRouter.get("/:id", validate(idNumberRequestSchema), async (req, res) => {
+  /*
+    #swagger.summary = "Gets a specific item by ID"
+    #swagger.responses[200] = {
+      description: "The item",
+      schema: {$ref: "#components/schemas/itemDetailed"}
+    }
+  */
   const data = idNumberRequestSchema.parse(req);
   const item = await getItemDetail(data.params.id);
   if (item != null) {
@@ -59,6 +73,15 @@ itemsRouter.post(
   checkRequiredPermission(ItemsPermissions.Write),
   validate(itemDTORequestSchema),
   async (req, res) => {
+    /*
+      #swagger.summary = "Creates a new item"
+      #swagger.requestBody = {
+        required: true,
+        schema: { $ref: "#components/schemas/itemDTO"}
+      }
+      #swagger.security = [{bearerAuth:[]}] 
+    */
+
     const data = itemDTORequestSchema.parse(req);
     const item = await upsertItem(data.body);
     if (item != null) {
@@ -75,6 +98,15 @@ itemsRouter.delete(
   checkRequiredPermission(SecurityPermissions.Deny),
   validate(idNumberRequestSchema),
   async (req, res) => {
+    /*
+      #swagger.summary = "Deletes a specific item by ID"
+      #swagger.responses[200] = {
+        description: "The item that was deleted",
+        schema: {$ref: "#components/schemas/item"}
+      }
+      #swagger.security = [{bearerAuth:[]}]
+    */
+
     const data = idNumberRequestSchema.parse(req);
     const item = await deleteItem(data.params.id);
     if (item != null) {
@@ -91,6 +123,15 @@ itemsRouter.put(
   checkRequiredPermission(ItemsPermissions.Write),
   validate(itemDTORequestSchema),
   async (req, res) => {
+    /*
+    #swagger.summary = "Updates an item"
+    #swagger.requestBody = {
+      required: true,
+      schema: { $ref: "#components/schemas/updateItemDTO"}
+    } 
+    #swagger.security = [{bearerAuth:[]}]
+    */
+
     const data = itemDTORequestSchema.parse(req);
     const item = await upsertItem(data.body);
     if (item != null) {

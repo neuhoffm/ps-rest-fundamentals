@@ -32,6 +32,23 @@ ordersRouter.get(
   checkRequiredPermission(OrdersPermissions.Read),
   validate(pagingRequestSchema),
   async (req, res) => {
+    /*
+    #swagger.summary = "Gets all orders"
+    #swagger.parameters["start"]={
+      description: "The starting index of orders to retrieve",
+      required: true,
+      type: "number"
+    }
+    #swagger.parameters["size"]={
+      description: "The number of orders to retrieve",
+      required: true,
+      type: "number"
+    }
+    #swagger.responses[200] = {
+      description: "The list of orders",
+      schema: {$ref: "#components/schemas/orders"}
+    }
+  */
     const data = pagingRequestSchema.parse(req);
     const orders = await getOrders(data.query.start, data.query.size);
 
@@ -45,6 +62,13 @@ ordersRouter.get(
   checkRequiredPermission(OrdersPermissions.Read_Single),
   validate(idUUIDRequestSchema),
   async (req, res) => {
+    /*
+    #swagger.summary = "Gets a specific order by ID"
+    #swagger.responses[200] = {
+      description: "The order",
+      schema: {$ref: "#components/schemas/order"}
+    }
+  */
     const data = idUUIDRequestSchema.parse(req);
     const order = await getOrderDetail(data.params.id);
     if (order != null) {
@@ -61,6 +85,13 @@ ordersRouter.post(
   checkRequiredPermission(OrdersPermissions.Create),
   validate(orderDTORequestSchema),
   async (req, res) => {
+    /*
+      #swagger.summary = "Creates a new order"
+      #swagger.requestBody = {
+        required: true,
+        schema: { $ref: "#components/schemas/orderDTO"}
+      } 
+    */
     const data = orderDTORequestSchema.parse(req);
     const order = await upsertOrder(data.body);
     if (order != null) {
@@ -77,6 +108,13 @@ ordersRouter.delete(
   checkRequiredPermission(SecurityPermissions.Deny),
   validate(idUUIDRequestSchema),
   async (req, res) => {
+    /*
+      #swagger.summary = "Deletes a specific order by ID"
+      #swagger.responses[200] = {
+        description: "The order that was deleted",
+        schema: {$ref: "#components/schemas/order"}
+      }
+    */
     const data = idUUIDRequestSchema.parse(req);
     const order = await deleteOrder(data.params.id);
     if (order != null) {
@@ -93,6 +131,14 @@ ordersRouter.put(
   checkRequiredPermission(OrdersPermissions.Write),
   validate(orderDTORequestSchema),
   async (req, res) => {
+    /*
+    #swagger.summary = "Updates an order's status"
+    #swagger.requestBody = {
+      required: true,
+      schema: { $ref: "#components/schemas/updateOrderDTO"}
+    } 
+    */
+
     const data = orderDTORequestSchema.parse(req);
     const order = await upsertOrder(data.body);
     if (order != null) {
@@ -109,6 +155,13 @@ ordersRouter.delete(
   checkRequiredPermission(OrdersPermissions.Create),
   validate(idItemIdUUIDRequestSchema),
   async (req, res) => {
+    /*
+    #swagger.summary = "Deletes a specific item from an order by order and item ID"
+    #swagger.responses[200] = {
+      description: "The order after the item is deleted",
+      schema: {$ref: "#components/schemas/order"}
+    }
+  */
     const data = idItemIdUUIDRequestSchema.parse(req);
     const order = await deleteOrderItem(data.params.id, data.params.itemId);
     if (order != null) {
@@ -125,6 +178,13 @@ ordersRouter.post(
   checkRequiredPermission(OrdersPermissions.Create),
   validate(orderItemsDTORequestSchema),
   async (req, res) => {
+    /*
+    #swagger.summary = "Adds items to an order"
+    #swagger.requestBody = {
+      required: true,
+      schema: { $ref: "#components/schemas/orderItemsDTO"}
+    } 
+  */
     const data = orderItemsDTORequestSchema.parse(req);
     const promises = data.body.map((item) => {
       return addOrderItem(data.params.id, item.itemId, item.quantity);

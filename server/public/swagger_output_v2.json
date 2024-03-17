@@ -53,6 +53,11 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -86,6 +91,11 @@
             "description": "Not Found"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -126,12 +136,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#components/schemas/item"
+                  "$ref": "#components/schemas/itemDetailed"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#components/schemas/item"
+                  "$ref": "#components/schemas/itemDetailed"
                 }
               }
             }
@@ -182,7 +192,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/customers/": {
@@ -208,7 +223,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -227,17 +247,22 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#components/schemas/customerDTO"
+                "$ref": "#components/schemas/createCustomerDTO"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#components/schemas/customerDTO"
+                "$ref": "#components/schemas/createCustomerDTO"
               }
             }
           }
@@ -247,7 +272,7 @@
         "tags": [
           "Customers"
         ],
-        "summary": "Updates an customer",
+        "summary": "Updates a customer",
         "description": "",
         "responses": {
           "200": {
@@ -260,6 +285,11 @@
             "description": "Not Found"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -316,7 +346,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -356,7 +391,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/customers/{id}/orders": {
@@ -364,7 +404,7 @@
         "tags": [
           "Customers"
         ],
-        "summary": "Gets a specific customer's orders by customer ID",
+        "summary": "Gets the orders for a customer by customer ID",
         "description": "",
         "parameters": [
           {
@@ -382,12 +422,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#components/schemas/orders"
+                  "$ref": "#components/schemas/customerOrders"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#components/schemas/orders"
+                  "$ref": "#components/schemas/customerOrders"
                 }
               }
             }
@@ -395,7 +435,12 @@
           "400": {
             "description": "Bad Request"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/customers/search/{query}": {
@@ -403,7 +448,7 @@
         "tags": [
           "Customers"
         ],
-        "summary": "Gets all customers matching the search query",
+        "summary": "Gets customers matching the query",
         "description": "",
         "parameters": [
           {
@@ -434,7 +479,12 @@
           "400": {
             "description": "Bad Request"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders/": {
@@ -483,7 +533,12 @@
           "400": {
             "description": "Bad Request"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -502,6 +557,11 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -535,6 +595,11 @@
             "description": "Not Found"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -591,7 +656,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -631,7 +701,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders/{id}/items/{itemId}": {
@@ -681,7 +756,12 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/orders/{id}/items": {
@@ -712,6 +792,11 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -744,8 +829,16 @@
             "name": {
               "type": "string",
               "example": "Kayak"
+            },
+            "thumbnailImageUrl": {
+              "type": "string",
+              "example": "http://localhost:4000/images/thumbnails/1.jpg"
             }
-          }
+          },
+          "required": [
+            "id",
+            "name"
+          ]
         },
         "xml": {
           "name": "items"
@@ -762,28 +855,69 @@
             "type": "string",
             "example": "Kayak"
           },
+          "thumbnailImageUrl": {
+            "type": "string",
+            "example": "http://localhost:4000/images/thumbnails/1.jpg"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "xml": {
+          "name": "item"
+        }
+      },
+      "itemDetailed": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Kayak"
+          },
+          "imageUrl": {
+            "type": "string",
+            "example": "http://localhost:4000/images/1.jpg"
+          },
           "description": {
             "type": "string",
             "example": "Go for a paddle"
+          },
+          "staffReview": {
+            "type": "string",
+            "example": "This is an awesome product!"
+          },
+          "fullImageUrl": {
+            "type": "string",
+            "example": "http://localhost:4000/images/1.jpg"
           }
         },
+        "required": [
+          "id",
+          "name"
+        ],
         "xml": {
-          "name": "item"
+          "name": "itemDetailed"
         }
       },
       "itemDTO": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
           "name": {
             "type": "string",
             "example": "Kayak"
-          },
-          "description": {
-            "type": "string",
-            "example": "Go for a paddle"
           }
         },
         "required": [
+          "id",
           "name"
         ],
         "xml": {
@@ -807,7 +941,8 @@
           }
         },
         "required": [
-          "id"
+          "id",
+          "name"
         ],
         "xml": {
           "name": "updateItemDTO"
@@ -816,10 +951,6 @@
       "customer": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
-          },
           "name": {
             "type": "string",
             "example": "Kelsey Shiratori"
@@ -827,8 +958,15 @@
           "email": {
             "type": "string",
             "example": "ks@gmail.com"
+          },
+          "id": {
+            "type": "string",
+            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
           }
         },
+        "required": [
+          "id"
+        ],
         "xml": {
           "name": "customer"
         }
@@ -838,10 +976,6 @@
         "items": {
           "type": "object",
           "properties": {
-            "id": {
-              "type": "string",
-              "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
-            },
             "name": {
               "type": "string",
               "example": "Kelsey Shiratori"
@@ -849,14 +983,47 @@
             "email": {
               "type": "string",
               "example": "ks@gmail.com"
+            },
+            "id": {
+              "type": "string",
+              "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
             }
-          }
+          },
+          "required": [
+            "id"
+          ]
         },
         "xml": {
           "name": "customers"
         }
       },
-      "customerDTO": {
+      "customerOrders": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
+            },
+            "status": {
+              "type": "string",
+              "example": "Created"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2024-02-08T02:32:51.630Z"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "xml": {
+          "name": "customerOrders"
+        }
+      },
+      "createCustomerDTO": {
         "type": "object",
         "properties": {
           "name": {
@@ -869,16 +1036,12 @@
           }
         },
         "xml": {
-          "name": "customerDTO"
+          "name": "createCustomerDTO"
         }
       },
       "updateCustomerDTO": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
-          },
           "name": {
             "type": "string",
             "example": "Kelsey Shiratori"
@@ -886,8 +1049,15 @@
           "email": {
             "type": "string",
             "example": "ks@gmail.com"
+          },
+          "id": {
+            "type": "string",
+            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
           }
         },
+        "required": [
+          "id"
+        ],
         "xml": {
           "name": "updateCustomerDTO"
         }
@@ -901,10 +1071,6 @@
               "type": "string",
               "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
             },
-            "customerId": {
-              "type": "string",
-              "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
-            },
             "status": {
               "type": "string",
               "example": "Created"
@@ -912,8 +1078,31 @@
             "createdAt": {
               "type": "string",
               "example": "2024-02-08T02:32:51.630Z"
+            },
+            "customer": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Kelsey Shiratori"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "ks@gmail.com"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+                }
+              },
+              "required": [
+                "id"
+              ]
             }
-          }
+          },
+          "required": [
+            "id"
+          ]
         },
         "xml": {
           "name": "orders"
@@ -926,10 +1115,6 @@
             "type": "string",
             "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
           },
-          "customerId": {
-            "type": "string",
-            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
-          },
           "status": {
             "type": "string",
             "example": "Created"
@@ -937,8 +1122,68 @@
           "createdAt": {
             "type": "string",
             "example": "2024-02-08T02:32:51.630Z"
+          },
+          "customer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Kelsey Shiratori"
+              },
+              "email": {
+                "type": "string",
+                "example": "ks@gmail.com"
+              },
+              "id": {
+                "type": "string",
+                "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "orderId": {
+                  "type": "string",
+                  "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
+                },
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Kayak"
+                    },
+                    "imageUrl": {
+                      "type": "string",
+                      "example": "http://localhost:4000/images/1.jpg"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 2
+                }
+              }
+            }
           }
         },
+        "required": [
+          "id"
+        ],
         "xml": {
           "name": "order"
         }
@@ -950,15 +1195,18 @@
             "type": "string",
             "example": "262cb163-5ea4-41fa-87c1-a93fac8025c6"
           },
-          "customerId": {
-            "type": "string",
-            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
-          },
           "status": {
             "type": "string",
             "example": "Created"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "45b23d49-7297-43da-b853-3c7f42c7da6a"
           }
         },
+        "required": [
+          "id"
+        ],
         "xml": {
           "name": "orderDTO"
         }
@@ -972,9 +1220,12 @@
           },
           "status": {
             "type": "string",
-            "example": "Shipped"
+            "example": "Created"
           }
         },
+        "required": [
+          "id"
+        ],
         "xml": {
           "name": "updateOrderDTO"
         }
