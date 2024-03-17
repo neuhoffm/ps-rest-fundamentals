@@ -12,11 +12,11 @@ export type Item = {
   id: number;
   name: string;
   imageUrl?: string;
-  staffReview?: string;
 };
 
 export type ItemDetail = Item & {
   description: string | null;
+  staffReview?: string;
 };
 
 export const itemDTO = z.object({

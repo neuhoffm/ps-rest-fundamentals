@@ -41,6 +41,7 @@ itemsRouter.get("/:id", validate(idNumberRequestSchema), async (req, res) => {
   const data = idNumberRequestSchema.parse(req);
   const item = await getItemDetail(data.params.id);
   if (item != null) {
+    item.staffReview = "This is a great product!";
     item.imageUrl = buildImageUrl(req, item.id);
     if (req.headers["accept"] == "application/xml") {
       res.status(200).send(create().ele("item", item).end());
