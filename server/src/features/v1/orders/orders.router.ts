@@ -14,15 +14,15 @@ import {
   orderItemsDTORequestSchema,
   pagingRequestSchema,
 } from "../types";
-import { validate } from "../../middleware/validation.middleware";
+import { validate } from "../../../middleware/validation.middleware";
 import {
   OrdersPermissions,
   SecurityPermissions,
-} from "../../config/permissions";
+} from "../../../config/permissions";
 import {
   checkRequiredPermission,
   validateAccessToken,
-} from "../../middleware/auth0.middleware";
+} from "../../../middleware/auth0.middleware";
 
 export const ordersRouter = express.Router();
 

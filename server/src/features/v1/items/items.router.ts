@@ -6,16 +6,16 @@ import {
   getItems,
 } from "./items.service";
 import { idNumberRequestSchema, itemDTORequestSchema } from "../types";
-import { validate } from "../../middleware/validation.middleware";
+import { validate } from "../../../middleware/validation.middleware";
 import { create } from "xmlbuilder2";
 import {
   ItemsPermissions,
   SecurityPermissions,
-} from "../../config/permissions";
+} from "../../../config/permissions";
 import {
   checkRequiredPermission,
   validateAccessToken,
-} from "../../middleware/auth0.middleware";
+} from "../../../middleware/auth0.middleware";
 
 export const itemsRouter = express.Router();
 

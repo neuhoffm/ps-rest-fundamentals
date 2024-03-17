@@ -11,17 +11,17 @@ import {
   customerDTORequestSchema,
   queryRequestSchema,
 } from "../types";
-import { validate } from "../../middleware/validation.middleware";
+import { validate } from "../../../middleware/validation.middleware";
 import { create } from "xmlbuilder2";
 import { getOrdersForCustomer } from "../orders/orders.service";
 import {
   checkRequiredPermission,
   validateAccessToken,
-} from "../../middleware/auth0.middleware";
+} from "../../../middleware/auth0.middleware";
 import {
   CustomersPermissions,
   SecurityPermissions,
-} from "../../config/permissions";
+} from "../../../config/permissions";
 
 export const customersRouter = express.Router();
 
