@@ -1,4 +1,5 @@
-{"scripts": {
+{
+  "scripts": {
     "install": "(cd ./server && npm i) && (cd ./frontend && npm i)",
     "dev-server": "cd ./server && npm run dev",
     "dev-frontend": "cd ./frontend && npm run dev"
